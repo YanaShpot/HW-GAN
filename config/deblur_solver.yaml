@@ -1,8 +1,8 @@
 ---
 project: deblur_gan
 experiment_desc: fpn
-dataroot_train: /home/tetianka/Documents/datasets/GOPRO_original
-dataroot_val: /home/tetianka/Documents/datasets/GOPRO_original
+dataroot_train: /content/gopro
+dataroot_val: /content/gopro
 phase: train
 warmup_num: 3
 model:
