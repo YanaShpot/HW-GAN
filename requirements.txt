@@ -1,0 +1,10 @@
+torch==1.0.1
+torchvision
+pretrainedmodels
+numpy
+opencv-python-headless
+albumentations
+scikit-image
+tqdm
+tensorboardx
+pyyaml
