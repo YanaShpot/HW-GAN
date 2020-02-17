@@ -97,7 +97,7 @@ class Trainer(object):
 			self.metric_counter.add_losses(loss_G.item(), loss_content.item(), loss_vgg.item())
 			curr_psnr, curr_ssim = self.model.get_acc(outputs, targets)
 			self.metric_counter.add_metrics(curr_psnr, curr_ssim)
-			if i == 1:
+			if i == 3:
 				self.metric_counter.images_to_tensorboard([inputs[0], targets[0], outputs[0]], epoch)
 		tq.close()
 		self.metric_counter.write_to_tensorboard(epoch, validation=True)
