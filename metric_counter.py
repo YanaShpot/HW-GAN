@@ -57,7 +57,7 @@ class MetricCounter():
     def images_to_tensorboard(self, images, epoch_num):
         map_to_pxl = lambda img: ((np.transpose(img, (1, 2, 0)) + 1) / 2.0).astype('float32')
         a, b, c = [map_to_pxl(i.cpu().data.numpy()) for i in images]
-        self.writer.add_image("Validation_prediction_images", np.hstack((a, b, c)), epoch_num,  dataformats='NHWC')
+        self.writer.add_image("Validation_prediction_images", np.hstack((a, b, c)), epoch_num)
 
     def update_best_model(self):
         cur_metric = np.mean(self.psnr)
