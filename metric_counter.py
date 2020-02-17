@@ -5,6 +5,7 @@ from torch.autograd import Variable
 import numpy as np
 from tensorboardX import SummaryWriter
 import logging
+import torchvision
 
 REPORT_EACH = 100
 
@@ -52,6 +53,11 @@ class MetricCounter():
         self.writer.add_scalar('{}_G_Loss_content'.format(scalar_prefix), np.mean(self.content_loss), epoch_num)
         self.writer.add_scalar('{}_SSIM'.format(scalar_prefix), np.mean(self.ssim), epoch_num)
         self.writer.add_scalar('{}_PSNR'.format(scalar_prefix), np.mean(self.psnr), epoch_num)
+
+        def images_to_tensorboard(self, images, epoch_num):
+			batch_tensor = torch.Tensor(images) 
+			grid_img = torchvision.utils.make_grid(batch_tensor) #.data().numpy().permute(1, 2, 0)
+			self.writer.add_scalar.add_image("Validation_prediction_images", grid_img, epoch_num)
 
     def update_best_model(self):
         cur_metric = np.mean(self.psnr)

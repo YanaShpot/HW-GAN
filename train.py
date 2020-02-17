@@ -84,7 +84,9 @@ class Trainer(object):
 		self.metric_counter.clear()
 		tq = tqdm.tqdm(self.val_dataset.dataloader)
 		tq.set_description('Validation')
+		i = 0
 		for data in tq:
+			i += 1
 			inputs, targets = self.model.get_input(data)
 			outputs = self.netG(inputs)
 			loss_content, loss_vgg = self.criterionG[0](outputs, targets), self.criterionG[1](outputs, targets)
@@ -95,6 +97,9 @@ class Trainer(object):
 			self.metric_counter.add_losses(loss_G.item(), loss_content.item(), loss_vgg.item())
 			curr_psnr, curr_ssim = self.model.get_acc(outputs, targets)
 			self.metric_counter.add_metrics(curr_psnr, curr_ssim)
+			if i == 1:
+				print("inputs.shape", inputs.shape)
+				self.metric_counter.images_to_tensorboard([inputs, targets, outputs], epoch=epoch)
 		tq.close()
 		self.metric_counter.write_to_tensorboard(epoch, validation=True)
 
