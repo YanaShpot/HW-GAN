@@ -77,9 +77,6 @@ class Trainer(object):
 			self.metric_counter.add_metrics(curr_psnr, curr_ssim)
 			tq.set_postfix(loss=self.metric_counter.loss_message())
 			i += 1
-			if i == 1:
-				print("inputs.shape", inputs.shape)
-				self.metric_counter.images_to_tensorboard([inputs, targets, outputs], epoch)
 		tq.close()
 		self.metric_counter.write_to_tensorboard(epoch)
 
@@ -101,8 +98,7 @@ class Trainer(object):
 			curr_psnr, curr_ssim = self.model.get_acc(outputs, targets)
 			self.metric_counter.add_metrics(curr_psnr, curr_ssim)
 			if i == 1:
-				print("inputs.shape", inputs.shape)
-# 				self.metric_counter.images_to_tensorboard([inputs, targets, outputs], epoch)
+				self.metric_counter.images_to_tensorboard([inputs[0], targets[0], outputs[0]], epoch)
 		tq.close()
 		self.metric_counter.write_to_tensorboard(epoch, validation=True)
 
