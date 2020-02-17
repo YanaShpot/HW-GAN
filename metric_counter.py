@@ -55,8 +55,9 @@ class MetricCounter():
         self.writer.add_scalar('{}_PSNR'.format(scalar_prefix), np.mean(self.psnr), epoch_num)
 
     def images_to_tensorboard(self, images, epoch_num):
-        map_to_pxl = lambda img: ((np.transpose(img, (1, 2, 0)) + 1) / 2.0).astype('float32')
+        map_to_pxl = lambda img: ((np.transpose(img, (1, 2, 0)) + 1) / 2.0 * 255.).astype('uint8')
         a, b, c = [map_to_pxl(i.cpu().data.numpy()) for i in images]
+        print(np.unique(a))
         self.writer.add_image("Validation_prediction_images", np.hstack((a, b, c)), epoch_num)
 
     def update_best_model(self):
