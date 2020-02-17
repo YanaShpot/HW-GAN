@@ -55,7 +55,7 @@ class MetricCounter():
         self.writer.add_scalar('{}_PSNR'.format(scalar_prefix), np.mean(self.psnr), epoch_num)
 
     def images_to_tensorboard(self, images, epoch_num):
-        batch_tensor = torch.tensor([i[0].cpu().data.numpy() for i in images]) 
+        batch_tensor = torch.tensor([i.cpu().data.numpy() for i in images]) 
         grid_img = torchvision.utils.make_grid(batch_tensor) #.data().numpy().permute(1, 2, 0)
         self.writer.add_image("Validation_prediction_images", grid_img, epoch_num)
 
